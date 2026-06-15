@@ -1,0 +1,211 @@
+/* couleurs principales */
+:root {
+    --bg-primary: #1e1e1e;
+    --bg-secondary: #252526;
+    --bg-terminal: #0c0c0c;
+    --bg-sidebar: #2d2d2d;
+    --accent: #007acc;
+    --accent-hover: #1177bb;
+    --text-primary: #d4d4d4;
+    --text-secondary: #cccccc;
+    --border-color: #3c3c3c;
+    --success: #4ec9b0;
+    --warning: #ce9178;
+    --error: #f48771;
+}
+/* base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    padding: 20px;
+    min-height: 100vh;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: var(--accent);
+    font-size: 1.8rem;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+    border-left: 4px solid var(--accent);
+    padding-left: 15px;
+}
+
+.container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+/*editeur*/
+.editor-container {
+    flex: 2;
+    min-width: 500px;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    overflow: visible;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+}
+/*terminal*/
+.terminal-container {
+    flex: 1;
+    min-width: 400px;
+    background: var(--bg-terminal);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+.section-title {
+    padding: 10px 15px;
+    background: var(--bg-sidebar);
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.target-selector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 400;
+    font-size: 0.85rem;
+}
+
+.target-selector label {
+    color: var(--text-secondary);
+}
+
+.target-selector select {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.target-selector select:hover,
+.target-selector select:focus {
+    border-color: var(--accent);
+}
+
+#editor {
+    flex: 1;
+    min-height: 500px;
+}
+
+.toolbar {
+    padding: 12px 15px;
+    background: var(--bg-sidebar);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    gap: 10px;
+}
+
+/* les boutons */
+button {
+    background: var(--accent);
+    border: none;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+button:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+button:disabled {
+    background: #555;
+    cursor: not-allowed;
+    transform: none;
+    opacity: 0.7;
+}
+/*terminal*/
+#terminal {
+    flex: 1;
+    min-height: 300px;
+    padding: 8px;
+}
+/* barre de status en bas du terminal*/
+.status {
+    padding: 8px 12px;
+    background: var(--bg-sidebar);
+    font-size: 12px;
+    border-top: 1px solid var(--border-color);
+    font-family: 'Consolas', monospace;
+    color: var(--text-secondary);
+}
+/* style du contenu du terminal*/
+@media (max-width: 950px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        flex-direction: column;
+    }
+    
+    .editor-container, .terminal-container {
+        min-width: auto;
+        width: 100%;
+    }
+    
+    #editor {
+        min-height: 400px;
+    }
+    
+    #terminal {
+        min-height: 250px;
+    }
+}
+
+/*scroll bar*/
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}

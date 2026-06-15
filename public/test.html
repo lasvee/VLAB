@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Test Monaco pur</title>
+</head>
+<body>
+    <h1>Test Monaco</h1>
+    <div id="editor" style="height: 400px; border: 1px solid #ccc;"></div>
+    
+    <script>
+        // Configuration avant chargement
+        var require = { paths: { vs: '/monaco/vs' } };
+    </script>
+    <script src="/monaco/vs/loader.js"></script>
+    <script>
+        require(['vs/editor/editor.main'], function() {
+            console.log('Chargement réussi !');
+            monaco.editor.create(document.getElementById('editor'), {
+                value: '#include <stdio.h>\n\nint main() { printf("Hello\\n"); return 0; }',
+                language: 'cpp',
+                theme: 'vs-dark'
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Remote Lab</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm/css/xterm.css" />
+</head>
+<body>
+    <h1>VLAB - Web to Silicon</h1>
+    
+    <div class="container">
+        <div class="editor-container">
+            <div class="section-title">
+                <span>📝 Éditeur C++</span>
+                <div class="target-selector">
+                    <label for="targetSelect">Cible :</label>
+                    <select id="targetSelect">
+                        <option value="esp32">ESP32</option>
+                        <option value="stm32">STM32</option>
+                    </select>
+                </div>
+            </div>
+            <div id="editor" style="height: 500px; width: 100%;"></div>
+            <div class="toolbar">
+                <button id="compileBtn">🚀 Compiler </button>
+            </div>
+        </div>
+
+        <div class="terminal-container">
+            <div class="section-title">🖥️ Console / Logs</div>
+            <div id="terminal" style="height: 500px;"></div>
+            <div class="status" id="status">⚡ Prêt</div>
+        </div>
+    </div>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xterm/lib/xterm.js"></script>
+    
+    <!--Chargement de Monaco -->
+    <script src="/monaco/vs/loader.js"></script>
+    
+    <!--chargement et création de l'éditeur -->
+    <script>
+    console.log('Chargement de Monaco...');
+    require.config({ paths: { vs: '/monaco/vs' } });
+    require(['vs/editor/editor.main'], function() {
+        console.log('Monaco chargé, création de l\'éditeur...');
+        window.editor = monaco.editor.create(document.getElementById('editor'), {
+            value: `#include <stdio.h>
+            #include "esp_log.h"
+            #include "freertos/FreeRTOS.h"
+            #include "freertos/task.h"
+
+            static const char *TAG = "MAIN";
+
+            extern "C" void app_main(void)
+            {
+                printf("Hello from Remote Lab!\\n");
+                ESP_LOGI(TAG, "ESP32 est prêt !");
+                
+                int counter = 0;
+                while (1) {
+                    printf("Compteur: %d\\n", counter++);
+                    vTaskDelay(1000 / portTICK_PERIOD_MS);
+                }
+            }`,
+                language: 'cpp',
+                theme: 'vs-dark',
+                fontSize: 14,
+                automaticLayout: true
+            });
+            console.log('✅ Éditeur créé et stocké dans window.editor');
+        });
+    </script>
+    
+    <script src="/client.js"></script>
+</body>
+</html>
